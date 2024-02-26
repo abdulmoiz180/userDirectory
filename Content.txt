@@ -1,0 +1,232 @@
+
+
+
+
+const xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://jsonplaceholder.typicode.com/users");
+  xhr.send();
+  xhr.responseType = "json";
+  xhr.onload = () => {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      const res = xhr.response;
+      cosole.log(res)
+    } else {
+      throw new Error(`Request failed: ${xhr.status}`);
+    }
+  };
+
+
+
+
+
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://jsonplaceholder.typicode.com/users");
+  xhr.send();
+  xhr.responseType = "json";
+  xhr.onload = () => {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      const res = xhr.response;
+      const container = document.getElementById("card-container");
+      container.innerHTML = ''; 
+      res.forEach(u => {
+        const card = document.createElement("div");
+        card.classList.add("user-card");
+        card.innerHTML = `
+          <h2>${u.name}</h2>
+          <p>${u.email}</p>
+        `;
+        container.appendChild(card);
+      });
+    } else {
+      throw new Error(`Request failed: ${xhr.status}`);
+    }
+  };
+
+
+
+
+
+
+
+
+function filterUsers() {
+  const searchQuery = document.getElementById("input").value.toLowerCase();
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://jsonplaceholder.typicode.com/users");
+  xhr.send();
+  xhr.responseType = "json";
+  xhr.onload = () => {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      const res = xhr.response;
+      const container = document.getElementById("card-container");
+      container.innerHTML = ''; 
+      res.filter(
+        v =>
+          v.name.toLowerCase().includes(searchQuery) ||
+          v.email.toLowerCase().includes(searchQuery)
+      ).forEach(u => {
+        const card = document.createElement("div");
+        card.classList.add("user-card");
+        card.innerHTML = `
+          <h2>${u.name}</h2>
+          <p>${u.email}</p>
+        `;
+        container.appendChild(card);
+      });
+    } else {
+      throw new Error(`Request failed: ${xhr.status}`);
+    }
+  };
+}
+
+document.getElementById("input").addEventListener("input", filterUsers);
+filterUsers();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Directory</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <main>
+        <header>
+            <div class="head">
+                <img src="./tuch hack.png" alt="logo">
+                <h1>User Dictionary</h1>
+
+            </div>
+        </header>
+        <div class="input-container">
+            <input type="text" id="input" value="" placeholder="Search...">
+
+        </div>
+
+        <div id="card-container">
+
+        </div>
+    </main>
+    <script src="./https.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif !important;
+  box-sizing: border-box;
+}
+:root {
+  --primary-clr: #4743e0;
+  --primary-font-clr: #42505c;
+  --secondary-font-clr: #404040;
+  --letter-spacing: 0.25px;
+  --line-height: 28px;
+  --heading-fs: 54px;
+  --secondary-bg-clr: #f9faff;
+}
+header {
+  height: 120px;
+  display: flex;
+  box-shadow: 7px 6px 23px -5px rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 7px 6px 23px -5px rgba(0, 0, 0, 0.38);
+  -moz-box-shadow: 7px 6px 23px -5px rgba(0, 0, 0, 0.38);
+  background-color: #4743e0;
+}
+.head {
+  display: flex;
+  width: 80%;
+  align-items: center;
+  margin: auto;
+  justify-content: space-between;
+}
+.head h1 {
+  font-size: 54px;
+  color: #f9faff;
+  font-weight: 600;
+}
+img {
+  width: 100px;
+}
+#card-container {
+  width: 80%;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.user-card {
+  border-radius: 12px;
+  padding: 20px 50px;
+  box-shadow: 7px 6px 23px -5px rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 7px 6px 23px -5px rgba(0, 0, 0, 0.38);
+  -moz-box-shadow: 7px 6px 23px -5px rgba(0, 0, 0, 0.38);
+  transition: transform 500ms;
+  background-color: var(--secondary-bg-clr);
+}
+.user-card:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+}
+h2 {
+  color: var(--primary-clr);
+  font-size: 44px;
+}
+p {
+  font-size: 18px;
+  color: var(--primary-font-clr);
+}
+.input-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+input{
+  width: 400px;
+  height: 50px;
+  border: none;
+  border-bottom: 1px solid #4743e0;
+  font-size: 18px;
+  color: #404040;
+  padding-left: 20px;
+  outline: none;
+}
+
