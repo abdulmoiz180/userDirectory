@@ -1,7 +1,7 @@
 function filterUsers() {
   const searchQuery = document.getElementById("input").value.toLowerCase();
   const xhr = new XMLHttpRequest();
-  const API = "https://jsonplaceholder.typicode.com/users";
+  const API = "paste your own api.";
   xhr.open("GET", API);
   xhr.send();
   xhr.responseType = "json";
